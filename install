@@ -2,6 +2,9 @@
 
 # install location
 LOCATION=/usr/local/bin
+LOCATION=$HOME/warp
+
+mkdir $LOCATION
 
 # exit top level program from subshell
 trap "exit 1" TERM
