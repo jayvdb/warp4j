@@ -62,11 +62,12 @@ function install() {
         fail
     fi
     echo "Creating $LOCATION/$name..."
-    sudo install -D \
-        --mode=755 \
-        --owner=root \
-        --group=root \
-        "$temp_location" "$LOCATION"
+    #sudo install -D \
+    #    --mode=755 \
+    #    --owner=root \
+     #   --group=root \
+     #   "$temp_location" "$LOCATION"
+    cp "$temp_location" "$LOCATION"
     if [[ $? != 0 ]]; then
         echo "Error: Failed to install $name" >&2
         fail
