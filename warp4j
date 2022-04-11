@@ -83,6 +83,8 @@ function get_this_platform() {
     case $this_platform in
         Linux*) echo $LIN ;;
         Darwin*) echo $MAC ;;
+        CYGWIN*) echo $WIN ;;
+        MINGW*) echo $WIN ;;
         *)
             fail_with "Unsupported platform $this_platform"
         ;;
@@ -357,6 +359,7 @@ fi
 # choose cache path for this platform
 case $THIS_PLATFORM in
     $MAC) CACHE_PATH="$HOME/Library/Application Support/warp4j" ;;
+    $WIN) CACHE_PATH='%LOCALAPPDATA%\warp4j';;
     *)    CACHE_PATH="$HOME/.local/share/warp4j" ;;
 esac
 
