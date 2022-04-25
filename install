@@ -73,7 +73,7 @@ function install() {
 
 # returns missing dependencies
 function get_missing_deps() {
-    local deps=( 
+    local deps=(
         "awk" \
         "curl" \
         "file" \

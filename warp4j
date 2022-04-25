@@ -57,7 +57,7 @@ function fail_with() {
     fail
 }
 
-# if error code is not zero fail with a message 
+# if error code is not zero fail with a message
 function fail_if() {
     local error_code=$1
     local message=$2
@@ -160,7 +160,7 @@ THIS_PLATFORM=$(get_this_platform)
 
 # checks if all dependencies are available
 function check_deps() {
-    local deps=( 
+    local deps=(
         "awk" \
         "curl" \
         "file" \
@@ -217,7 +217,7 @@ JVM_IMPL_HOTSPOT=hotspot
 JVM_IMPL_OPENJ9=openj9
 
 # validate jvm implementation
-if [[ $JVM_IMPL ]] && 
+if [[ $JVM_IMPL ]] &&
    [[ $JVM_IMPL != $JVM_IMPL_HOTSPOT ]] &&
    [[ $JVM_IMPL != $JVM_IMPL_OPENJ9 ]]; then
     fail_with "jvm implementation \"$JVM_IMPL\" is not correct"
@@ -327,7 +327,7 @@ if [[ $LIST_RELEASES ]]; then
 fi
 
 JAR_FILE_BASE_NAME=$(basename -- "$JAR") # "my-app.jAr"
-JAR_EXTENSION="${JAR_FILE_BASE_NAME##*.}" # "jAr" 
+JAR_EXTENSION="${JAR_FILE_BASE_NAME##*.}" # "jAr"
 JAR_EXTENSION_LOWERCASE=$(printf "%s" "$JAR_EXTENSION" | tr '[:upper:]' '[:lower:]') # "jar"
 JAR_NAME="${JAR_FILE_BASE_NAME%.*}" # "my-app"
 
@@ -348,7 +348,7 @@ if ([[ $(file $JAR) != *"Java"* ]] && # it could be "Java archive data" or "Java
 fi
 
 # even if this platform is not targeted, we still need
-# a JDK for this platform to optimize JDKs for other platforms 
+# a JDK for this platform to optimize JDKs for other platforms
 TARGETS_TO_CACHE=${TARGETS[@]}
 if [[ $JAVA_DISTRO_TYPE == $DISTRO_TYPE_JDK ]] &&  # if usind JDK (not JRE)
    [[ ${TARGETS[@]} != *"$THIS_PLATFORM"* ]]; then # and this platform is not targeted
@@ -395,7 +395,7 @@ JAVA=$DIR/$JAVA_DIST/bin/java
 JAR_PATH=$DIR/$JAR
 
 exec "$JAVA" '"$JVM_OPTIONS"' -jar "$JAR_PATH" "$@"
-' 
+'
 }
 
 # prints a launcher for windows cmd
@@ -413,7 +413,7 @@ SET "JAR_PATH=%~dp0\%JAR%"
 
 CALL %JAVA% '"$JVM_OPTIONS"' -jar %JAR_PATH% %*
 EXIT /B %ERRORLEVEL%
-' 
+'
 }
 
 # these files are success markers
@@ -508,7 +508,7 @@ function download_distro() {
     )
 }
 
-# ensures required distro is in cache 
+# ensures required distro is in cache
 function ensure_distro_cached() {
     local platform=$1
     local distro_info
@@ -522,7 +522,7 @@ function ensure_distro_cached() {
                 download_distro $platform $CONCRETE_JAVA_VERSION "$distro_link"
             else
                 CONCRETE_JAVA_VERSION=$(find_latest_cached $platform $LATEST_LTS)
-            fi 
+            fi
         else
             if [[ ! $(find_latest_cached $platform $JAVA_VERSION) ]]; then
                 distro_info=$(fetch_distro_info $platform $JAVA_VERSION_BASE)
@@ -531,7 +531,7 @@ function ensure_distro_cached() {
                 download_distro $platform $CONCRETE_JAVA_VERSION "$distro_link"
             else
                 CONCRETE_JAVA_VERSION=$(find_latest_cached $platform $JAVA_VERSION)
-            fi 
+            fi
         fi
     else
         if [[ -z $JAVA_VERSION ]]; then
@@ -555,7 +555,7 @@ done
 
 UNPACKED_SUBDIR="distro"
 
-# ensures required distro uncompressed 
+# ensures required distro uncompressed
 function ensure_distro_unpacked() {
     local platform=$1
     local version=$2
@@ -608,7 +608,7 @@ function ensure_distro_unpacked() {
     fi
 }
 
-# actually ensure required distro uncompressed 
+# actually ensure required distro uncompressed
 for target in ${TARGETS[@]}; do
     ensure_distro_unpacked $target $CONCRETE_JAVA_VERSION
 done
@@ -730,7 +730,7 @@ function warp_targets() {
         mv "$WARPED_TEMP_PATH/$WIN/$APP_NAME.exe" "$WARPED_PATH/$APP_NAME-windows-x64.exe"
         rmdir "$WARPED_TEMP_PATH/$WIN"
     fi
-    
+
     rmdir "$WARPED_TEMP_PATH"
 }
 
