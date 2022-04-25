@@ -53,6 +53,7 @@ function install() {
     local name=$1
     local link=$2
     local temp_location="/tmp/$name"
+    local this_platform="$THIS_PLATFORM"
     echo "Downloading $name..."
     curl -fsSL -o "$temp_location" "$link"
     if [[ $? != 0 ]]; then
@@ -60,11 +61,17 @@ function install() {
         fail
     fi
     echo "Creating $LOCATION/$name..."
-    sudo install -D \
-        --mode=755 \
-        --owner=root \
-        --group=root \
-        "$temp_location" "$LOCATION"
+    if [[ "$this_platform" == "macos" ]]; then
+        /usr/bin/install \
+            -m 755 \
+            "$temp_location" "$LOCATION"
+    else
+        sudo install -D \
+            --mode=755 \
+            --owner=root \
+            --group=root \
+            "$temp_location" "$LOCATION"
+    fi
     if [[ $? != 0 ]]; then
         echo "Error: Failed to install $name" >&2
         fail
