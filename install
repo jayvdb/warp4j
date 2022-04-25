@@ -100,6 +100,12 @@ function get_missing_deps() {
 
 WARP4J_LINK="https://raw.githubusercontent.com/guziks/warp4j/stable/warp4j"
 
+me=`basename "$0"`
+
+if [[ "$me" != "install" ]]; then
+    return
+fi
+
 echo "Getting information about warp-packer releases..."
 WARP_LINK=$(get_latest_warp_link $THIS_PLATFORM)
 
