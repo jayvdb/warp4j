@@ -721,7 +721,7 @@ function warp_targets() {
             --output "$WARPED_TEMP_PATH/$WIN/$APP_NAME.exe" \
             &> /dev/null
         fail_if $? "Failed to warp for $WIN"
-        if command -v zip &> /dev/null ; then (
+        if command -v zip-missing &> /dev/null ; then (
             echo "Archiving for $WIN..."
             cd "$WARPED_TEMP_PATH/$WIN"
             ls
